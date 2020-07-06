@@ -1,0 +1,28 @@
+<div class="topImageBlock">
+  <div class="food-home">
+
+
+
+    <div class="row centerrow">
+
+
+      <div class="input-group">
+
+        <ng-select [items]="cities" bindLabel="name" bindValue="name" id="search" class="form-control spacing"
+          placeholder={{selectedCityName}} [(ngModel)]="selectedCityName" dropdownPosition="auto">
+        </ng-select>&nbsp;
+        <div *ngIf="selectedCityName!= 'Select City'">
+          <span class="input-group-btn">
+            <input type="button" name="commit" value="Search" class="btn btn-primary searchspace"
+              data-disable-with="Search" (click)="goToDashboard($event, cityName=selectedCityName)">
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+</div>

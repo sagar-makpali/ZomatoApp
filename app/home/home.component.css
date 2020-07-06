@@ -1,0 +1,57 @@
+.topImageBlock {
+    background: url("../../assets/food4.jpg") ;
+     width:100%;
+    min-height:100%;
+    padding: 0;
+    margin: 0;
+    display: table;
+}
+
+div.food-home{
+    height: 80%;
+    font-family: "Roboto";
+    
+   
+    background-size: cover;
+    width: 100%;
+    padding: -0;
+    
+    
+}
+
+.header{
+    color:white;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Permanent Marker', cursive;
+    position: relative;
+    
+}
+h2{
+    text-align: center;
+    padding-top: 3.5em;
+}
+
+.centerrow {
+    margin: 0%;
+    width: 100%;
+    height: 100%;
+    padding: 20%;
+}
+
+
+
+
+.centerrow{
+    margin-top: 0%;
+    margin-left: 0%;
+    margin-bottom: 0%;
+    margin-right: 0%;
+}
+
+.searchspace { 
+    border-radius: 5px;
+    background: #cb202d;
+    border: block;
+}
+
