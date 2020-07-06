@@ -1,0 +1,144 @@
+<nav class="navbar navbar-expand-lg navbar-dark " style="background: linear-gradient(to right,rgb(73, 5, 5), #ce1e1e );">
+  <a class="navbar-brand" href="#">Food Hub</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">   
+          
+      
+    </ul>
+  </div>
+</nav>
+<table>
+  
+    <div class="container-fluid">
+      <div *ngFor="let reviewing of list">
+        <div class="header_resto">
+          <h3>{{reviewing.name}}</h3>
+          <p> {{reviewing.location.locality}}</p>
+          <p> {{reviewing.cuisines}}</p>
+        </div>
+        
+         
+        
+  
+  <tr>
+    <div   style="background: linear-gradient(to right,rgb(97, 13, 13), #4e051b );"class="col-lg-12 col-md-12 col-sm-12">
+
+      <img class="feature_image" src="{{reviewing.featured_image}}">
+       </div>
+  </tr>
+  <tr>
+    <div class="container">
+      <nav>
+        <div  style="background: linear-gradient(to right,rgb(85, 153, 119), #5f7894 );"class="nav nav-tabs" id="nav-tab" role="tablist" [class.active]="selectedTab==='Summary'">
+
+          <a class="{{selectedSummaryName}}" id="nav-home-tab" data-toggle="tab" role="tab" aria-controls="nav-home"
+            (click)="onSelectSummary()"><b>Summary</b></a>
+          <a class="{{selectedReviewName}}" id="nav-profile-tab" data-toggle="tab" role="tab"
+            aria-controls="nav-profile" (click)="onSelectReviews()"><b>Reviews</b></a>
+          <a class="{{selectedMenuName}}" id="nav-menu-tab" data-toggle="tab" role="tab" aria-controls="nav-menu"
+            (click)="onSelectDailyMenu()"><b>Daily Menu</b></a>
+
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div   style="background: linear-gradient(to right,rgb(158, 211, 184), #a0bddf );"class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+          *ngIf="selectedTab === selector[0]">
+          <div class="row content_box">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              <h5>Cuisines</h5>
+              <p>{{reviewing.cuisines}}</p>
+              <br>
+              <h5>Ratings</h5>
+              <p>{{ reviewing.user_rating.aggregate_rating }}</p>
+              <p>{{reviewing.user_rating.rating_text}} </p>
+              <p> {{reviewing.user_rating.votes}} votes</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+              <h5>Address</h5>
+              <p>{{reviewing.location.address}}
+                <br>{{reviewing.location.city}}
+                <br>Landmark: {{reviewing.location.locality}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              <h5>Average Cost</h5>
+              <p>{{reviewing.currency}} {{reviewing.average_cost_for_two}} for two people (approx.)</p>
+              <p>Exclusive of applicable taxes and charges, if any</p>
+              <p>Cash and Cards accepted</p>
+            </div>
+            <div class="row content_box">
+              <img
+                src="https://open.mapquestapi.com/staticmap/v4/getmap?key=f6XYNzfYpCPuveWhxvN4F3YwVm1LVgpK&size=800,600&type=map&imagetype=jpg&pois=red_1,{{reviewing.location.latitude}},{{reviewing.location.longitude}},-20,-20">
+
+            </div>
+          </div>
+
+        </div>
+        <div     style="background: linear-gradient(to right,rgb(85, 153, 119), #5f7894 );"class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+          *ngIf="selectedTab === selector[1]">
+          <div class="row content_box" *ngIf="list2Init===true">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <h5>Total Reviews : {{list2[0].reviews_count}}</h5>
+              <div class="card" *ngFor="let userreview of list2[0].user_reviews">
+                <div class="card-body">
+                  <div class="example-header-image"><img src="{{userreview.review.user.profile_image}}"> </div>
+                  <h5 class="card-title"><a
+                      href="{{userreview.review.user.profile_url}}">{{userreview.review.user.name}}</a> </h5>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    {{userreview.review.user.foodie_level}}<br>{{userreview.review.review_time_friendly}}</h6>
+                </div>
+
+                <p class="card-text">{{userreview.review.review_text}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+
+        <div  style="background: linear-gradient(to right,rgb(85, 153, 119), #5f7894 );" class="tab-pane fade show active" id="nav-menu" role="tabpanel" aria-labelledby="nav-menu-tab"
+          *ngIf="selectedTab === selector[2]">
+          <div class="row content_box" *ngIf="list3Init===true && dailyMenuData===true">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <h5>Daily Menu Name : {{list3[0].name}}</h5>
+              <div class="card" *ngFor="let dishe of list3[0].dishes">
+                <div class="card-body">
+                  <div class="example-header-image"><img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbs6k3KFJzD_vg2eeVaXp6WXKzjRsZOiweLtQxYICIhu6kuCok&s">
+                  </div>
+                  <h5 class="card-title">{{dishe.name}} </h5>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    {{dishe.price}}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row content_box" *ngIf="dailyMenuData===false">
+            <h5>No Daily Menu Available for this restaurant!</h5>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </tr>
+  </div>
+  </div>
+</table>

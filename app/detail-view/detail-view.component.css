@@ -1,0 +1,63 @@
+.row {
+    margin: 0 auto;
+    position: relative;
+    top: 0%;
+}
+
+.header_resto {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 0;
+    border-bottom-left-radius: 0cm;
+    font-family: fantasy;
+    -moz-background-clip: border-box;
+}
+
+.image_height {
+    max-width: 80%;
+    margin: 0 auto;
+    max-height: 350px ;
+}
+
+.feature_image {
+    width: 100%;
+    background: url('../../assets/food2.gif') no repeat;
+    background-size: cover;
+    height: 100%;
+}
+.tab-content{
+    padding: 2em;
+    margin-top: 3em;
+}
+.container{
+    padding-top: 3em;
+}
+.card-body{
+    padding: 2em;
+}
+
+.card-text{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.container-fluid{
+    font-family: "Roboto"
+}
+
+agm-map {
+    height: 300px;
+}
+.navbar-brand{font-family:fantasy;
+    text-align: center;
+    color:white;
+    text-shadow: black;
+    font-size: 250%;
+    float:center;
+    text-shadow: 7cm;
+    }
+    .container{
+        border: 3%;
+        font-family: italic;
+    }
+    .root{background-color: crimson;}
