@@ -1,0 +1,181 @@
+div{
+    font-family: "Roboto";
+    
+}
+
+.container{
+    display: table-cell;
+    
+    padding-right: 0px;
+    padding-left: 0px;
+    background-size: cover;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.topImageBlock {
+    background: url("../../assets/food6.jpg") ;
+     width:100%;
+    min-height:100%;
+    padding: 0;
+    margin: 0;
+    display: table;
+}
+.row1 {
+    position: absolute;
+    display: table-row;
+     width:100%;
+     text-shadow: black;
+    padding: 0;
+    margin: 0;
+}
+.row2 {
+    display: table-row;
+     width:100%;
+     text-shadow: black;
+     text-shadow: 1cm;
+    padding: 0;
+    margin: 0;
+}
+.row3 {
+     width:100%;
+     display: table-row;
+    padding: 0;
+    margin: 0;
+}
+
+h1{font-family:fantasy;
+text-align: center;
+color:white;
+text-shadow: black;
+font-size: 500%;
+float:center;
+text-shadow: 1cm;
+}
+.para{font-family:  sans-serif;
+    text-align: center;
+    color:white;
+    text-shadow: red;
+    font-size: 250%;
+   
+    
+    }
+a:link{
+    text-decoration: none;
+    text-rendering: optimizeSpeed;
+    color: rgb(41, 47, 56);
+  }
+  .card-title{
+    font-size: 1.5em;
+    color: black;
+}
+
+.heading{
+    font-size: 0.8rem;
+
+}
+
+.card{
+    margin: 8%;
+    border-radius: 5px;
+    -webkit-transition: 0.3s ease-in-out, 
+    -webkit-transform 0.3s ease-in-out;
+	-moz-transition:  0.3s ease-in-out, 
+    -moz-transform 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out, 
+    transform 0.3s ease-in-out, ;
+    
+}
+
+.card:hover {
+	transform: scale(1.03); 
+}
+.content .star{
+    width: 1.5em;
+    float: left;
+}
+
+.content.smile{
+    width: 1.5em;
+}
+
+.rating{
+    margin-left: 5px;
+}
+.review{
+    float: right;
+}
+.content {
+    width: 90%;
+    padding:1em;
+    font-size: 0.9rem
+}
+.centerrow {
+    margin: 0;
+    width: 80%;
+    height: 90%;
+}
+
+    
+    
+.spacing {
+    height: 100%;
+    
+    border: none;
+    color:white(10, 8, 8);
+    border-radius: 8px;
+    
+}
+.searchspace {
+    padding: 15px;
+    border-radius: 5px;
+    background: #cb202d;
+    border: none;
+    height: 200%;
+    
+}
+
+.searchspace:focus {
+    box-shadow: none;
+    background: black
+}
+
+.searchspace:active{
+    transition: all 0.8s;
+    background:grey
+}
+
+
+
+::placeholder {
+    color: #cb202d;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: #cb202d;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+   color: #cb202d;
+  }
+
+.form-control:focus {
+    border: 1px solid white;
+    box-shadow: none;
+}
+
+.header {
+    margin: 0 auto;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    position: relative;
+    top: 25%;
+    padding-bottom: 1em;
+    font-weight: bold;
+    font-size: 3.5rem;
+    font-family: 'Permanent Marker', cursive;
+}
+
+
+    
+
