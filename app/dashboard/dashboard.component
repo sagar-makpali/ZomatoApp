@@ -1,0 +1,138 @@
+import { Component, OnInit,OnChanges } from '@angular/core';
+
+import { ZomatoServiceService } from '../zomato-service.service';
+import { ActivatedRoute, Router,NavigationEnd } from '@angular/router';
+
+@Component({
+  selector: 'dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
+})
+
+export class DashboardComponent implements OnInit {
+
+  title = 'Food-e-Delicious';
+  cityName: string = "";
+  cityIdDetail: any;
+  collections: any;
+  categoriesDetail:any;
+  establishment: any;
+  restoList: any;
+  selectedCityName: string = "Select City";
+  cities: any;
+  collectionId: number;
+  loading: boolean = false;
+  searchRestoList: any = [];
+  selectedRestoName: string = "Select Restaurant";
+  restoName: string;
+  currCollection: any;
+  selectedRestoId: any;
+  passSelectedName: any;
+  test=[];
+  
+
+  constructor(private foodservice: ZomatoServiceService,
+    private route: ActivatedRoute,
+    private router: Router) { 
+     
+    }
+
+  ngOnInit() {
+    this.cities = this.foodservice.cities;
+    this.getAllDetails();
+  }
+ 
+  async setRestoId(e, passSelectedName) {
+   //this.selectedRestoId= this.searchRestoList.restaurant.id;
+  // this.selectedRestoId =
+  // console.log("ttttttt:" + JSON.stringify(this.searchRestoList.filter(word => (word.restaurant.name === passSelectedName))));
+   this.test=this.searchRestoList.filter(word => (word.restaurant.name === passSelectedName));
+   this.selectedRestoId = JSON.stringify(this.test[0].restaurant.id);
+  // console.log(JSON.stringify(this.test));
+   //for( let ids in this.test)
+   //{
+   // this.selectedRestoId =ids.
+  // }
+  
+  }
+  async goToDashboard(e, cityName) {
+    await this.router.navigate(['/dashboard', cityName]);
+    this.getAllDetails();
+  }
+  goToDetail(e, restoName) {
+    console.log("rest id final= "+ restoName);
+    if(restoName == "" || restoName == null) {
+      console.log("navigating to error page unknown "+ restoName);
+      this.router.navigate(['**']);
+    } else {
+    this.router.navigate(["/detail", restoName.toString().replace(/['"]+/g, '')]);
+    }
+  }
+
+  async getAllDetails() {
+    this.loading = true;
+    const id = this.route.snapshot.paramMap.get('id').toString();
+    this.cityName = id;
+    this.selectedCityName = this.cityName;
+    await this.foodservice.getCityId(id).subscribe(
+      async data => {
+       // console.log("logging all details of city data:" + JSON.stringify(data));
+        for(let key in data) {
+          if (key == "location_suggestions") {
+            this.cityIdDetail = await data[key][0].id;
+          //  console.log("data array's first  id: " + this.cityIdDetail);
+            this.getcollectionDetails(this.cityIdDetail);
+          }
+        }
+      }
+    )
+    console.log("dashboard data of city id " + id + " city name :" + this.cityName);
+    await this.getCategoriesDetails();
+  }
+  
+  getcollectionDetails(cityId) {
+    this.foodservice.getCollections(cityId).subscribe(
+      data => {
+        this.collections = data["collections"];
+       // console.log("logging all collection details of city id "+ cityId +" data: " + JSON.stringify(data));
+
+       // console.log("logging all collections only: " + JSON.stringify(data["collections"]));
+
+        for(let i of this.collections) {
+         // console.log("value of i iterator: "+ JSON.stringify(i));
+          console.log("value of i iterator: "+ JSON.stringify(i.collection.title));
+          if(i.collection.title == "Trending This Week") {
+             this.currCollection = i.collection;
+             console.log("value of current collection: "+ JSON.stringify(this.currCollection));
+            this.collectionId = i.collection_id;
+          }
+        }
+        this.getTrendingRestaurant(cityId, this.collectionId);
+      }
+    )
+  }
+
+  getCategoriesDetails() {
+    this.foodservice.getCategories().subscribe(
+      data => {
+        this.categoriesDetail = data;
+        this.categoriesDetail = this.categoriesDetail.categories;
+      }
+    )
+  }
+
+  getTrendingRestaurant(cityId, collectionId) {
+    this.foodservice.getTrendResto(cityId, collectionId).subscribe(
+      data => {
+        
+        this.restoList = data;
+       
+        this.restoList = Array.from(this.restoList.restaurants);
+        console.log("restauramt listt:" + JSON.stringify(this.restoList));
+        this.searchRestoList = this.restoList;
+        //this.selectedRestoId=
+      }
+    )
+  }
+}
+
