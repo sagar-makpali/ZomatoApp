@@ -1,0 +1,166 @@
+
+import { Component, OnInit } from '@angular/core';
+import { ZomatoServiceService } from '../zomato-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+//import { HttpClient } from '@angular/common/http';
+//import { request } from 'http';
+
+@Component({
+  selector: 'app-detail-view',
+  templateUrl: './detail-view.component.html',
+  styleUrls: ['./detail-view.component.css']
+})
+export class DetailViewComponent implements OnInit {
+
+  reviewList: any;
+  menuList: any;
+  list: any = [];
+  list2: any = [];
+  list3: any = [];
+  cities: any;
+  loading: boolean;
+  selectedCityName: string = "";
+  cityName: string = "";
+  restoName: string = "";
+  selectedRestoName;
+  searchRestoList;
+  restoDetailList: any = [];
+  selector: string[] = ['Summary', 'Reviews', 'Daily Menu'];
+  selectedTab = this.selector[0];
+  list2Init = false;
+  list3Init = false;
+  dailyMenuData: boolean;
+  selectedSummaryName: string = "nav-summary nav-link active";
+  selectedReviewName: string = "nav-reviews nav-link";
+  selectedMenuName: string = "nav-menu nav-link";
+
+
+  constructor(private foodservice: ZomatoServiceService,
+    private route: ActivatedRoute,
+    private router: Router
+    //,private httpService: HttpClient
+  ) { }
+
+  ngOnInit() {
+    this.cities = this.foodservice.cities;
+    console.log("lisssssst2: " + this.list2);
+    this.getRestoDetail();
+    console.log("restodetail function finished");
+   // this.setMapLocation();
+  }
+  goToDashboard(e, cityName) {
+    this.router.navigate(['/dashboard', cityName]);
+  }
+
+  async getRestoDetail() {
+    console.log("reached detail page");
+    const id = this.route.snapshot.paramMap.get('id').toString().replace(/['"]+/g, '');
+    console.log("resto id: " + id);
+    await this.foodservice.getRestaurantDetail(id).subscribe(
+      data => {
+        //  console.log("resto detail listt:" + JSON.stringify(data));
+        this.restoDetailList = data;
+        // for (let element1 in this.restoDetailList) 
+        // {
+        this.list.push(this.restoDetailList);
+        // }
+        console.log("list r:" + JSON.stringify(this.list));
+      },
+      error => {
+        this.router.navigate(['**']);
+      }
+    );
+    this.foodservice.getReview(id).subscribe(
+      data => {
+        // console.log("review  listt:" + JSON.stringify(data));
+        this.reviewList = data;
+
+        //this.list.push(this.restoDetailList);
+        // for (let element2 in this.reviewList) 
+        // {
+        this.list2.push(this.reviewList);
+        //}
+        //this.list2.push(this.reviewList);
+        this.list2Init = true;
+        console.log("list2 r:" + JSON.stringify(this.list2));
+      },
+      error => {
+        this.router.navigate(['**']);
+      }
+    );
+
+    this.foodservice.getRestMenu(id).subscribe(
+      data => {
+        // console.log("review  listt:" + JSON.stringify(data));
+        this.menuList = data;
+
+        //this.list.push(this.restoDetailList);
+        // for (let element2 in this.reviewList) 
+        // {
+        this.list3.push(this.menuList);
+        //}
+        //this.list2.push(this.reviewList);
+        this.list3Init = true;
+        this.dailyMenuData = true;
+        console.log("list3 r:" + JSON.stringify(this.list3));
+      },
+      error => {
+        console.log(error);
+        this.dailyMenuData = false;
+        this.onSelectSummary();
+        // this.router.navigate(['**']);
+      }
+    );
+  }
+  onSelectSummary() {
+    this.selectedTab = 'Summary';
+   // var divContainer = document.getElementById("nav-tab");
+   // var tabs = divContainer.getElementsByTagName("a");
+
+   
+  //  var current = document.getElementsByClassName("active");
+  //  console.log("selectorrrrrr class:"+ current[0].className + " current var length:"+ current.length);
+   // current[0].className = current[0].className.replace(" active", "");
+   // this.selectedSummaryName.replace(" active","");
+   this.selectedMenuName= "nav-menu nav-link" ;
+   this.selectedReviewName= "nav-reviews nav-link";
+   this.selectedSummaryName= "nav-summary nav-link active";
+  }
+
+  onSelectReviews() {
+    this.selectedTab = 'Reviews';
+   // var divContainer = document.getElementById("nav-tab");
+   // var tabs = divContainer.getElementsByTagName("a");
+
+   
+      //  var current = document.getElementsByClassName("nav-link active");
+      //  console.log("selectorrrrrr class:"+ current[0].className + " current var length:"+ current.length);
+      //  current[0].className = current[0].className.replace(" active", "");
+       // this.selectedReviewName.replace(" active","");
+       this.selectedMenuName= "nav-menu nav-link" ;
+    this.selectedReviewName= "nav-reviews nav-link active";
+    this.selectedSummaryName= "nav-summary nav-link";
+       // current[0].className = current[0].className.replace(" active", "");
+       // console.log("selectorrrrrr class replacing active:"+ current[0].className);
+  }
+
+  onSelectDailyMenu() {
+    this.selectedTab = 'Daily Menu';
+    //var divContainer = document.getElementById("nav-tab");
+   // var tabs = divContainer.getElementsByTagName("a");
+
+   
+   // var current = document.getElementsByClassName("nav-link active");
+   // console.log("selectorrrrrr class:"+ current[0].className + " current var length:"+ current.length);
+    //current[0].className = current[0].className.replace(" active", "");
+   // this.selectedMenuName.replace(" active","");
+    this.selectedMenuName= "nav-menu nav-link active" ;
+    this.selectedReviewName= "nav-reviews nav-link";
+    this.selectedSummaryName= "nav-summary nav-link";
+    
+
+  }
+
+  
+
+}
